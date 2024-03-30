@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { useIsUserOnboarded } from "@/lib/hooks/action/user";
+import { getIsUserOnboarded } from "@/lib/entities/user";
 import { redirect } from "next/navigation";
 
 export default async function OverviewLayout({
@@ -9,7 +9,7 @@ export default async function OverviewLayout({
 }) {
   const user = await auth();
 
-  const isUserOnboarded = await useIsUserOnboarded(user?.user.id as string);
+  const isUserOnboarded = await getIsUserOnboarded(user?.user.id as string);
 
   if (!isUserOnboarded) {
     redirect("/onboard");

@@ -1,7 +1,11 @@
 import db from "@/lib/db";
-import { auth } from "@/auth";
+import { User } from "@prisma/client";
 
-export const useGetUserByEmail = async (email: string) => {
+interface UserData {
+  [key: string]: User[keyof User];
+}
+
+export const getUserByEmail = async (email: string) => {
   try {
     const user = await db.user.findUnique({
       where: {
@@ -14,7 +18,21 @@ export const useGetUserByEmail = async (email: string) => {
   }
 };
 
-export const useGetUserById = async (id: string) => {
+export const updateUserById = async <T extends UserData>(id: string, data: T) => {
+  try {
+    const user = await db.user.update({
+      where: {
+        id,
+      },
+      data,
+    });
+    return user;
+  } catch (error) {
+    return null;
+  }
+}
+
+export const getUserById = async (id: string) => {
   try {
     const user = await db.user.findUnique({
       where: {
@@ -26,7 +44,8 @@ export const useGetUserById = async (id: string) => {
     return null;
   }
 };
-export const useIsUserOnboarded = async (id: string) => {
+
+export const getIsUserOnboarded = async (id: string) => {
   try {
     const user = await db.user.findUnique({
       where: {
@@ -41,3 +60,4 @@ export const useIsUserOnboarded = async (id: string) => {
     return null;
   }
 }
+

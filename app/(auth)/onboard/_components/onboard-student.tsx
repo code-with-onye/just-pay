@@ -25,7 +25,7 @@ import useRoleStore from "../_hooks/store";
 import { cn } from "@/lib/utils";
 import { OnboardStudentSchema } from "../_schema";
 import { useToast } from "@/components/ui/use-toast";
-import { useOnboardStudent } from "../_hooks/mutation";
+import { UpateStudent } from "../_mutation";
 
 export const OnboardStudent = () => {
   const { role } = useRoleStore();
@@ -63,7 +63,7 @@ export const OnboardStudent = () => {
     console.log(values);
 
     startTransition(() => {
-      useOnboardStudent(values)
+      UpateStudent(values)
         .then((data) => {
           if (data?.error) {
             form.reset();

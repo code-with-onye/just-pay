@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 import type { NextAuthConfig } from "next-auth";
 import { SigninSchema } from "./app/(auth)/_schema";
-import { useGetUserByEmail } from "./lib/hooks/action/user";
+import { getUserByEmail } from "./lib/entities/user";
 
 export default {
   providers: [
@@ -14,7 +14,7 @@ export default {
           if (validatedFields.success) {
             const { email, password } = validatedFields.data;
   
-            const user = await useGetUserByEmail(email);
+            const user = await getUserByEmail(email);
   
             if (!user || !user.password) return null;
   

@@ -3,9 +3,9 @@ import * as z from "zod";
 import bcrypt from "bcryptjs";
 import { SignupSchema } from "../../_schema";
 import db from "@/lib/db";
-import { useGetUserByEmail } from "@/lib/hooks/action/user";
+import { getUserByEmail } from "@/lib/entities/user";
 
-export const signup = async (values: z.infer<typeof SignupSchema>) => {
+export const SignUp = async (values: z.infer<typeof SignupSchema>) => {
   const validatedFields = SignupSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -15,7 +15,7 @@ export const signup = async (values: z.infer<typeof SignupSchema>) => {
   const { email, password, phone } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const existingUser = await useGetUserByEmail(email);
+  const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
     return { error: "Email already exists" };

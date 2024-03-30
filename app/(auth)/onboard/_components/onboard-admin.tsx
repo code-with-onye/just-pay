@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 
 import useRoleStore from "../_hooks/store";
 import { OnboardAdminSchema } from "../_schema";
-import { useOnboardAdmin } from "../_hooks/mutation";
+import { UpdateAdmin } from "../_mutation";
 
 export const OnboardAdmin = () => {
 
@@ -28,6 +28,7 @@ export const OnboardAdmin = () => {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const { role } = useRoleStore();
+
 
   const form = useForm<z.infer<typeof OnboardAdminSchema>>({
     resolver: zodResolver(OnboardAdminSchema),
@@ -45,7 +46,7 @@ export const OnboardAdmin = () => {
     console.log(values);
 
     startTransition(() => {
-      useOnboardAdmin(values)
+      UpdateAdmin(values)
         .then((data) => {
           if (data?.error) {
             form.reset();

@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSignUpStore, useSignupStep } from "../_hooks/store/useSignupStore";
-import { signup } from "../_hooks/useSignup";
+import { signup } from "../_mutation/signup";
 import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({

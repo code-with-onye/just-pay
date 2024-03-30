@@ -3,8 +3,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import db from "./lib/db";
 import authConfig from "./auth.config";
-import { useGetUserById } from "./lib/hooks/action/user";
 import { UserRole } from "@prisma/client";
+import { getUserById } from "./lib/entities/user";
 
 export const {
   handlers: { GET, POST },
@@ -17,7 +17,7 @@ export const {
     async jwt({ token, user }) {
       if (!token.sub) return token;
 
-      const existingUser = await useGetUserById(token.sub);
+      const existingUser = await getUserById(token.sub);
 
       if (!existingUser) return token;
       token.role = existingUser.role;
