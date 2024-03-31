@@ -15,9 +15,9 @@ export default async function OverviewLayout({
     redirect("/onboard");
   }
 
-  // if (!user?.user.role || user.user.role !== "USER") {
-  //   redirect("/admin");
-  // }
+  if (user?.user.role !== "USER") {
+    redirect("/admin");
+  }
 
   return <>{children}</>;
 }

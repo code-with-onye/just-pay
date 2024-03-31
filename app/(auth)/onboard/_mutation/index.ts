@@ -34,6 +34,7 @@ export const UpdateAdmin = async (
       lastName: lastname,
       accountNumber: accountNumber,
       role: role,
+      onboarded: true,
     })
 
     return { user: updateUser, success: "User created" };
