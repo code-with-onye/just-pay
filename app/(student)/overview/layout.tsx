@@ -7,13 +7,13 @@ export default async function OverviewLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const user = await auth();
+  const user = await auth();
 
-  // const isUserOnboarded = await getIsUserOnboarded(user?.user.id as string);
+  const isUserOnboarded = await getIsUserOnboarded(user?.user.id as string);
 
-  // if (!isUserOnboarded) {
-  //   redirect("/onboard");
-  // }
+  if (!isUserOnboarded) {
+    redirect("/onboard");
+  }
 
   // if (!user?.user.role || user.user.role !== "USER") {
   //   redirect("/admin");

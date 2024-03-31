@@ -7,13 +7,13 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const user = await auth();
+  const user = await auth();
 
-  // const isUserOnboarded = await getIsUserOnboarded(user?.user.id as string);
+  const isUserOnboarded = await getIsUserOnboarded(user?.user.id as string);
 
-  // if (isUserOnboarded === false) {
-  //   redirect("/onboard");
-  // }
+  if (isUserOnboarded === false) {
+    redirect("/onboard");
+  }
 
   // if (!user?.user.role || user.user.role !== "ADMIN") {
   //   redirect("/overview");
