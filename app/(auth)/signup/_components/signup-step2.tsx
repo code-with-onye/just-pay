@@ -45,12 +45,6 @@ export const SignupStep2 = () => {
 
     startTransition(() => {
       SignUp({ ...user, ...values }).then((res) => {
-        setError(res.error);
-        toast({
-          title: "Error",
-          description: res.error || "Something went wrong",
-          variant: "destructive",
-        });
         if (res.success) {
           setUser({
             phone: "",
@@ -59,6 +53,13 @@ export const SignupStep2 = () => {
           });
 
           router.push("/signin");
+        } else {
+          setError(res.error);
+          toast({
+            title: "Error",
+            description: res.error || "Something went wrong",
+            variant: "destructive",
+          });
         }
       });
     });
