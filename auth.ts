@@ -22,7 +22,12 @@ export const {
       if (!existingUser) return token;
       token.role = existingUser.role;
       token.name = existingUser.firstName;
-      token.accessToken = existingUser.accessToken;
+      token.onboarded = existingUser.onboarded
+
+      
+      if(existingUser.role === "ADMIN" ){
+        token.duesapproved = existingUser.duesapproved
+      }
 
       return token;
     },
@@ -40,8 +45,12 @@ export const {
         session.user.name = token.name;
       }
 
-      if (token.accessToken && session.user) {
-        session.user.accessToken = token.accessToken as string;
+      if (token.duesapproved && session.user) {
+        session.user.duesapproved = token.duesapproved as boolean;
+      }
+
+      if (token.onboarded && session.user) {
+        session.user.onboarded = token.onboarded as boolean;
       }
 
       return session;

@@ -26,6 +26,7 @@ export const SignUp = async (values: z.infer<typeof SignupSchema>) => {
       email,
       password: hashedPassword,
       phone,
+      duesapproved: false,
     },
   });
 

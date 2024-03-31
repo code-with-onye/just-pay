@@ -34,6 +34,7 @@ export const UpdateAdmin = async (
       lastName: lastname,
       accountNumber: accountNumber,
       role: role,
+      duesapproved: false,
       onboarded: true,
     })
 
@@ -82,6 +83,7 @@ export const UpateStudent = async (
       state,
       gender,
       onboarded: true,
+      duesapproved: false,
       role: role as "ADMIN" | "USER",
     })
 

@@ -31,7 +31,7 @@ export const updateUserById = async <T extends UserData>(id: string, data: T) =>
     return null;
   }
 }
-
+ 
 export const getUserById = async (id: string) => {
   try {
     const user = await db.user.findUnique({
