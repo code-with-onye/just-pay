@@ -1,12 +1,13 @@
-import { auth, signOut } from "@/auth";
+import { signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { AdminDashboardLayout } from "./_components/dashboard-layout";
+import { currentUser } from "@/lib/entities/auth";
 export default async function AdminPage() {
-  const session = await auth();
+  const user = await currentUser();
 
   return (
     <>
-    {/* {JSON.stringify(session)}
+      {/* {JSON.stringify(session)}
       <form
         action={async () => {
           "use server";
@@ -16,7 +17,14 @@ export default async function AdminPage() {
         <Button type="submit">Sign out</Button>
       </form> */}
 
-      <AdminDashboardLayout/>
+      <AdminDashboardLayout user={{
+        name: user?.name,
+        email: user?.email,
+        image: user?.image,
+        id: user?.id,
+        role: user?.role,
+        onboarded: user?.onboarded
+      }} />
     </>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={cn(poppins.className, "bg-[#FAFBFC]")}>
         <main>{children}</main>
         <Toaster />
       </body>

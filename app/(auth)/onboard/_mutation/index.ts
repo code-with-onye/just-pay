@@ -4,6 +4,7 @@ import * as z from "zod";
 import { OnboardAdminSchema, OnboardStudentSchema } from "../_schema";
 import { auth } from "@/auth";
 import { updateUserById } from "@/lib/entities/user";
+import { createCustomer } from "@/lib/paystack/customer";
 
 export const UpdateAdmin = async (
   values: z.infer<typeof OnboardAdminSchema>
@@ -36,9 +37,16 @@ export const UpdateAdmin = async (
       role: role,
       duesapproved: false,
       onboarded: true,
-    })
+    });
 
-    return { user: updateUser, success: "User created" };
+    const customer = await createCustomer({
+      first_name: updateUser?.firstName,
+      last_name: updateUser?.lastName,
+      email: updateUser?.email,
+      phone: updateUser?.phone,
+    });
+
+    return { user: updateUser, customer, success: "User created" };
   } catch (error) {
     return { message: "Error Onboading", error: error };
   }
@@ -85,7 +93,7 @@ export const UpateStudent = async (
       onboarded: true,
       duesapproved: false,
       role: role as "ADMIN" | "USER",
-    })
+    });
 
     return { user: updateUser, success: "User created" };
   } catch (error) {
