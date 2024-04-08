@@ -13,8 +13,8 @@ export const Main = () => {
       <section className="w-full">
         <span className="text-sm my-2">View all</span>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
-          {[1, 1, 1].map(() => (
-            <PaymentCard />
+          {[1, 1, 1].map((i:number) => (
+            <PaymentCard key={i}/>
           ))}
         </div>
       </section>
