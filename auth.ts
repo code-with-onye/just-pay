@@ -3,7 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import db from "./lib/db";
 import authConfig from "./auth.config";
-import { UserRole } from "@prisma/client";
+import { DuesStatus, UserRole } from "@prisma/client";
 import { getUserById } from "./lib/entities/user";
 
 export const {
@@ -21,12 +21,13 @@ export const {
 
       if (!existingUser) return token;
       token.role = existingUser.role;
-      token.name = existingUser.firstName;
-      token.onboarded = existingUser.onboarded
+      token.onboarded = existingUser.onboarded;
 
-      
-      if(existingUser.role === "ADMIN" ){
-        token.duesapproved = existingUser.duesapproved
+      if (existingUser.role === "ADMIN") {
+        token.duesapproved = existingUser.duesapproved;
+        token.name = existingUser.admin?.firstname;
+      } else {
+        token.name = existingUser.student?.firstName;
       }
 
       return token;
@@ -46,7 +47,7 @@ export const {
       }
 
       if (token.duesapproved && session.user) {
-        session.user.duesapproved = token.duesapproved as boolean;
+        session.user.duesapproved = token.duesapproved as DuesStatus;
       }
 
       if (token.onboarded && session.user) {

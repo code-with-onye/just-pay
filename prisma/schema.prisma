@@ -12,25 +12,24 @@ enum UserRole {
   USER
 }
 
+enum DuesStatus {
+  APPROVED
+  NOT_APPROVED
+}
+
 model User {
-  id            String    @id @default(cuid())
-  firstName     String?
-  lastName      String?
-  otherName     String?
-  department    String?
-  state         String?
-  tribe         String?
-  gender        String?
-  accountNumber String?
+  id            String     @id @default(cuid())
   phone         String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
-  role          UserRole  @default(USER)
-  duesapproved  Boolean   @default(false)
-  onboarded     Boolean   @default(false)
+  role          UserRole   @default(USER)
+  duesapproved  DuesStatus @default(NOT_APPROVED)
+  onboarded     Boolean    @default(false)
   password      String?
 
+  student Student?
+  admin   Admin?
   Account Account[]
 
   createdAt DateTime @default(now())
@@ -54,4 +53,64 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Student {
+  id         String  @id @default(cuid())
+  userId     String  @unique
+  firstName  String?
+  lastName   String?
+  otherName  String?
+  department String?
+  state      String?
+  tribe      String?
+  gender     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Admin {
+  id            String @id @default(cuid())
+  userId        String @unique
+  firstname     String
+  lastname      String
+  accountNumber String
+
+  dues         Dues[]
+  paymentLinks PaymentLink[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PaymentLink {
+  id      String @id @default(cuid())
+  adminId String
+  title   String
+  price   String
+  link    String
+
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Dues {
+  id          String @id @default(cuid())
+  adminId     String
+  title       String
+  description String
+  price       String
+
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model transaction {
+  id String @id @default(cuid())
+
+  amount    Int
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
