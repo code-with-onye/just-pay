@@ -6,6 +6,7 @@ export type ExtendedUser = DefaultSession["user"] & {
   firstname?: string;
   duesapproved: "APPROVED" | "NOT_APPROVED";
   onboarded: boolean;
+  adminId?: string;
 };
 declare module "next-auth" {
   interface Session {

@@ -13,6 +13,7 @@ import { PaymentForm } from "./payment-form";
 
 export default function CreatePayment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   return (
     <>
       <Dialog open={isModalOpen} onOpenChange={() => setIsModalOpen(false)}>

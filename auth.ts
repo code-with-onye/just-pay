@@ -26,6 +26,7 @@ export const {
       if (existingUser.role === "ADMIN") {
         token.duesapproved = existingUser.duesapproved;
         token.name = existingUser.admin?.firstname;
+        token.adminId = existingUser.admin?.id
       } else {
         token.name = existingUser.student?.firstName;
       }
@@ -52,6 +53,10 @@ export const {
 
       if (token.onboarded && session.user) {
         session.user.onboarded = token.onboarded as boolean;
+      }
+
+      if (token.adminId && session.user) {
+        session.user.adminId  = token.adminId as string;
       }
 
       return session;
