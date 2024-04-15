@@ -69,11 +69,15 @@ export const createPayment = async (
   }
 };
 
-export const getPaymentLinkAdminId = async (adminId: string) => {
+export const getPaymentLinkAdminId = async (adminId: string, take = 3) => {
   const paymentLinks = await db.paymentLink.findMany({
     where: {
       adminId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take,
   });
 
   return paymentLinks;

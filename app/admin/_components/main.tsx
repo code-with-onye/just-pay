@@ -37,7 +37,7 @@ export const Main = async () => {
       </section>
 
       {/* Recent transaction table */}
-      <RecentTransaction />
+      {/* <RecentTransaction /> */}
     </div>
   );
 };
